@@ -85,6 +85,12 @@ const SearchesPage = ({ match, location }) => {
     setModalIsOpen(false);
   };
 
+  // useEffect(() => {
+  //   if (data.length) {
+  //     getEthnicityOptions();
+  //   }
+  // }, [data]);
+
   // componentDidMount() {
   //   policeapi
   //     .get(`/stops-force?force=${this.props.match.params.id}`)

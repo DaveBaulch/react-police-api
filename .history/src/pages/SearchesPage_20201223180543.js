@@ -3,11 +3,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Loading from '../components/Loading';
-import SearchesChart from '../components/SearchesChart';
+import SearchesChart from '../components/SearchesItemDetail';
 import SearchesItemDetail from '../components/SearchesItemDetail';
 import Modal from 'react-modal';
-// import { Bar } from 'react-chartjs-2';
-// import Breakpoints from '../config/Breakpoints';
+import { Bar } from 'react-chartjs-2';
+import Breakpoints from '../config/Breakpoints';
 import useData from '../hooks/useData';
 
 const SearchesPage = ({ match, location }) => {
@@ -16,7 +16,7 @@ const SearchesPage = ({ match, location }) => {
   );
 
   const [selectedSearchItem, setSelectedSearchItem] = useState(null);
-  // const [ethnicityOptions, setEthnicityOptions] = useState([]);
+  const [ethnicityOptions, setEthnicityOptions] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const customStyles = {
     content: {
@@ -52,6 +52,7 @@ const SearchesPage = ({ match, location }) => {
       return <div>No search details available for this force.</div>;
     }
 
+    // console.log('state: ' + this.state.selectedForceSearches);
     return data.map((search, index) => {
       return (
         <li
@@ -66,6 +67,25 @@ const SearchesPage = ({ match, location }) => {
       );
     });
   };
+
+  // const getEthnicityOptions = () => {
+  //   let ethnicityOptions = Array.from(
+  //     new Set(data.map(({ self_defined_ethnicity }) => self_defined_ethnicity))
+  //   );
+  //   setEthnicityOptions(ethnicityOptions);
+  //   return ethnicityOptions;
+  //   getEthnicityData();
+  // };
+
+  // const getEthnicityData = () => {
+  //   return ethnicityOptions.map((ethnicity) => {
+  //     //console.log(ethnicity);
+  //     const size = data.filter(
+  //       (item) => item.self_defined_ethnicity === ethnicity
+  //     ).length;
+  //     return size;
+  //   });
+  // };
 
   const onSearchItemSelect = (search) => {
     setSelectedSearchItem(search);
@@ -84,6 +104,12 @@ const SearchesPage = ({ match, location }) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  // useEffect(() => {
+  //   if (data.length) {
+  //     getEthnicityOptions();
+  //   }
+  // }, [data]);
 
   // componentDidMount() {
   //   policeapi

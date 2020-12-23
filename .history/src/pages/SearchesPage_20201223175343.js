@@ -3,11 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Loading from '../components/Loading';
-import SearchesChart from '../components/SearchesChart';
 import SearchesItemDetail from '../components/SearchesItemDetail';
 import Modal from 'react-modal';
-// import { Bar } from 'react-chartjs-2';
-// import Breakpoints from '../config/Breakpoints';
+import { Bar } from 'react-chartjs-2';
+import Breakpoints from '../config/Breakpoints';
 import useData from '../hooks/useData';
 
 const SearchesPage = ({ match, location }) => {
@@ -52,6 +51,7 @@ const SearchesPage = ({ match, location }) => {
       return <div>No search details available for this force.</div>;
     }
 
+    // console.log('state: ' + this.state.selectedForceSearches);
     return data.map((search, index) => {
       return (
         <li
@@ -64,6 +64,24 @@ const SearchesPage = ({ match, location }) => {
           Search type: {search.object_of_search}
         </li>
       );
+    });
+  };
+
+  const getEthnicityOptions = () => {
+    let ethnicityOptions = Array.from(
+      new Set(data.map(({ self_defined_ethnicity }) => self_defined_ethnicity))
+    );
+    // setEthnicityOptions(ethnicityOptions);
+    return ethnicityOptions;
+  };
+
+  const getEthnicityData = () => {
+    return data.ethnicityOptions.map((ethnicity) => {
+      //console.log(ethnicity);
+      const size = data.filter(
+        (item) => item.self_defined_ethnicity === ethnicity
+      ).length;
+      return size;
     });
   };
 
@@ -84,6 +102,12 @@ const SearchesPage = ({ match, location }) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  // useEffect(() => {
+  //   if (data.length) {
+  //     getEthnicityOptions();
+  //   }
+  // }, [data]);
 
   // componentDidMount() {
   //   policeapi
@@ -107,38 +131,38 @@ const SearchesPage = ({ match, location }) => {
   //     });
   // }
 
-  // const showGraph = () => {
-  //   if (data && window.innerWidth > Breakpoints.config.md) {
-  //     return (
-  //       <Bar
-  //         options={{
-  //           scales: {
-  //             xAxes: [
-  //               {
-  //                 ticks: {
-  //                   autoSkip: false
-  //                 }
-  //               }
-  //             ]
-  //           },
-  //           responsive: true
-  //         }}
-  //         data={{
-  //           labels: getEthnicityOptions(),
-  //           datasets: [
-  //             {
-  //               label: 'Searchs by ethnicity',
-  //               data: [],
-  //               backgroundColor: 'rgba(75,192,192,1)',
-  //               borderColor: 'rgba(0,0,0,1)',
-  //               borderWidth: 2
-  //             }
-  //           ]
-  //         }}
-  //       />
-  //     );
-  //   }
-  // };
+  const showGraph = () => {
+    if (window.innerWidth > Breakpoints.config.md) {
+      return (
+        <Bar
+          options={{
+            scales: {
+              xAxes: [
+                {
+                  ticks: {
+                    autoSkip: false
+                  }
+                }
+              ]
+            },
+            responsive: true
+          }}
+          data={{
+            labels: getEthnicityOptions(),
+            datasets: [
+              {
+                label: 'Searchs by ethnicity',
+                data: getEthnicityData(),
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2
+              }
+            ]
+          }}
+        />
+      );
+    }
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -166,9 +190,7 @@ const SearchesPage = ({ match, location }) => {
               <div className="sixteen wide column">
                 <h2>Self-defined ethnicity</h2>
 
-                <div className="mobile-hidden">
-                  {data && <SearchesChart data={data} />}
-                </div>
+                <div className="mobile-hidden">{this.showGraph()}</div>
 
                 <h3>Click on an item for more detail</h3>
                 <ul className="no-padding">{renderedSearches()}</ul>

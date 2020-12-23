@@ -67,6 +67,25 @@ const SearchesPage = ({ match, location }) => {
     });
   };
 
+  // const getEthnicityOptions = () => {
+  //   let ethnicityOptions = Array.from(
+  //     new Set(data.map(({ self_defined_ethnicity }) => self_defined_ethnicity))
+  //   );
+  //   setEthnicityOptions(ethnicityOptions);
+  //   return ethnicityOptions;
+  //   getEthnicityData();
+  // };
+
+  // const getEthnicityData = () => {
+  //   return ethnicityOptions.map((ethnicity) => {
+  //     //console.log(ethnicity);
+  //     const size = data.filter(
+  //       (item) => item.self_defined_ethnicity === ethnicity
+  //     ).length;
+  //     return size;
+  //   });
+  // };
+
   const onSearchItemSelect = (search) => {
     setSelectedSearchItem(search);
     openModal();
@@ -84,6 +103,12 @@ const SearchesPage = ({ match, location }) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  // useEffect(() => {
+  //   if (data.length) {
+  //     getEthnicityOptions();
+  //   }
+  // }, [data]);
 
   // componentDidMount() {
   //   policeapi

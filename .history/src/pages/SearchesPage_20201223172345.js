@@ -1,33 +1,17 @@
 import React from 'react';
 // import policeapi from '../apis/policeapi';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import Loading from '../components/Loading';
-import SearchesChart from '../components/SearchesChart';
 import SearchesItemDetail from '../components/SearchesItemDetail';
 import Modal from 'react-modal';
-// import { Bar } from 'react-chartjs-2';
-// import Breakpoints from '../config/Breakpoints';
+import { Bar } from 'react-chartjs-2';
+import Breakpoints from '../config/Breakpoints';
 import useData from '../hooks/useData';
 
-const SearchesPage = ({ match, location }) => {
+const SearchesPage = (props) => {
   const [data, isLoading, isError] = useData(
-    `/stops-force?force=${match.params.id}`
+    `/stops-force?force=${props.match.params.id}`
   );
-
-  const [selectedSearchItem, setSelectedSearchItem] = useState(null);
-  // const [ethnicityOptions, setEthnicityOptions] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)'
-    }
-  };
 
   // state = {
   //   selectedForceSearches: [],
@@ -47,43 +31,58 @@ const SearchesPage = ({ match, location }) => {
   //   }
   // };
 
-  const renderedSearches = () => {
-    if (!data.length) {
-      return <div>No search details available for this force.</div>;
-    }
+  // renderedSearches() {
+  //   if (!this.state.selectedForceSearches.length) {
+  //     return <div>No search details available for this force.</div>;
+  //   }
 
-    return data.map((search, index) => {
-      return (
-        <li
-          key={`searches-${index}`}
-          className="ui segment search-item no-bullets"
-          onClick={() => onSearchItemSelect(search)}
-        >
-          Gender: {search.gender}, <br />
-          Age range: {search.age_range}, <br />
-          Search type: {search.object_of_search}
-        </li>
-      );
-    });
-  };
+  //   // console.log('state: ' + this.state.selectedForceSearches);
+  //   return this.state.selectedForceSearches.map((search, index) => {
+  //     return (
+  //       <li
+  //         key={`searches-${index}`}
+  //         className="ui segment search-item no-bullets"
+  //         onClick={() => this.onSearchItemSelect(search)}
+  //       >
+  //         Gender: {search.gender}, <br />
+  //         Age range: {search.age_range}, <br />
+  //         Search type: {search.object_of_search}
+  //       </li>
+  //     );
+  //   });
+  // }
 
-  const onSearchItemSelect = (search) => {
-    setSelectedSearchItem(search);
-    openModal();
-  };
+  // getEthnicityData = () => {
+  //   //console.log(this.state.ethnicityOptions);
+  //   return this.state.ethnicityOptions.map((ethnicity) => {
+  //     console.log(ethnicity);
+  //     const size = this.state.selectedForceSearches.filter(
+  //       (item) => item.self_defined_ethnicity === ethnicity
+  //     ).length;
+  //     // console.log(ethnicity + ': ' + size);
+  //     return size;
+  //   });
+  // };
 
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
+  // onSearchItemSelect = (search) => {
+  //   this.setState({ selectedSearchItem: search });
+  //   this.openModal();
+  // };
 
-  const afterOpenModal = () => {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = '#f00';
-  };
+  // openModal = () => {
+  //   //setIsOpen(true)
+  //   this.setState({ modalIsOpen: true });
+  // };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
+  // afterOpenModal = () => {
+  //   // references are now sync'd and can be accessed.
+  //   // subtitle.style.color = '#f00';
+  // };
+
+  // closeModal = () => {
+  //   //setIsOpen(false);
+  //   this.setState({ modalIsOpen: false });
+  // };
 
   // componentDidMount() {
   //   policeapi
@@ -107,8 +106,8 @@ const SearchesPage = ({ match, location }) => {
   //     });
   // }
 
-  // const showGraph = () => {
-  //   if (data && window.innerWidth > Breakpoints.config.md) {
+  // showGraph() {
+  //   if (window.innerWidth > Breakpoints.config.md) {
   //     return (
   //       <Bar
   //         options={{
@@ -124,11 +123,11 @@ const SearchesPage = ({ match, location }) => {
   //           responsive: true
   //         }}
   //         data={{
-  //           labels: getEthnicityOptions(),
+  //           labels: this.state.ethnicityOptions,
   //           datasets: [
   //             {
   //               label: 'Searchs by ethnicity',
-  //               data: [],
+  //               data: this.getEthnicityData(),
   //               backgroundColor: 'rgba(75,192,192,1)',
   //               borderColor: 'rgba(0,0,0,1)',
   //               borderWidth: 2
@@ -138,7 +137,7 @@ const SearchesPage = ({ match, location }) => {
   //       />
   //     );
   //   }
-  // };
+  // }
 
   if (isLoading) {
     return <Loading />;
@@ -155,7 +154,9 @@ const SearchesPage = ({ match, location }) => {
   return (
     <div>
       <div className="ui container">
-        <h1>{location.state.selectedForceName} searches for the last month</h1>
+        <h1>
+          {props.location.state.selectedForceName} searches for the last month
+        </h1>
         <Link to={'/'} className="ui button primary">
           Back to homepage
         </Link>
@@ -166,24 +167,11 @@ const SearchesPage = ({ match, location }) => {
               <div className="sixteen wide column">
                 <h2>Self-defined ethnicity</h2>
 
-                <div className="mobile-hidden">
-                  {data && <SearchesChart data={data} />}
-                </div>
+                <div className="mobile-hidden">{this.showGraph()}</div>
 
                 <h3>Click on an item for more detail</h3>
-                <ul className="no-padding">{renderedSearches()}</ul>
 
-                <Modal
-                  isOpen={modalIsOpen}
-                  onAfterOpen={afterOpenModal}
-                  onRequestClose={closeModal}
-                  style={customStyles}
-                  contentLabel="Example Modal"
-                >
-                  <button onClick={closeModal}>close</button>
-                  <h2>Search details</h2>
-                  <SearchesItemDetail selectedSearchItem={selectedSearchItem} />
-                </Modal>
+
               </div>
             </div>
           </div>

@@ -3,11 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Loading from '../components/Loading';
-import SearchesChart from '../components/SearchesChart';
 import SearchesItemDetail from '../components/SearchesItemDetail';
 import Modal from 'react-modal';
-// import { Bar } from 'react-chartjs-2';
-// import Breakpoints from '../config/Breakpoints';
+import { Bar } from 'react-chartjs-2';
+import Breakpoints from '../config/Breakpoints';
 import useData from '../hooks/useData';
 
 const SearchesPage = ({ match, location }) => {
@@ -16,7 +15,7 @@ const SearchesPage = ({ match, location }) => {
   );
 
   const [selectedSearchItem, setSelectedSearchItem] = useState(null);
-  // const [ethnicityOptions, setEthnicityOptions] = useState([]);
+  const [ethnicityOptions, setEthnicityOptions] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const customStyles = {
     content: {
@@ -52,6 +51,7 @@ const SearchesPage = ({ match, location }) => {
       return <div>No search details available for this force.</div>;
     }
 
+    // console.log('state: ' + this.state.selectedForceSearches);
     return data.map((search, index) => {
       return (
         <li
@@ -65,6 +65,23 @@ const SearchesPage = ({ match, location }) => {
         </li>
       );
     });
+  };
+
+  const getEthnicityOptions = () => {
+    let ethnicityOptions = Array.from(
+      new Set(data.map(({ self_defined_ethnicity }) => self_defined_ethnicity))
+    );
+    setEthnicityOptions(ethnicityOptions);
+  };
+
+  const getEthnicityData = () => {
+    return data.ethnicityOptions.map((ethnicity) => {
+      console.log(ethnicity);
+      const size = selectedForceSearches.filter(
+        (item) => item.self_defined_ethnicity === ethnicity
+      ).length;
+      return size;
+    }
   };
 
   const onSearchItemSelect = (search) => {
@@ -107,8 +124,8 @@ const SearchesPage = ({ match, location }) => {
   //     });
   // }
 
-  // const showGraph = () => {
-  //   if (data && window.innerWidth > Breakpoints.config.md) {
+  // showGraph() {
+  //   if (window.innerWidth > Breakpoints.config.md) {
   //     return (
   //       <Bar
   //         options={{
@@ -124,11 +141,11 @@ const SearchesPage = ({ match, location }) => {
   //           responsive: true
   //         }}
   //         data={{
-  //           labels: getEthnicityOptions(),
+  //           labels: this.state.ethnicityOptions,
   //           datasets: [
   //             {
   //               label: 'Searchs by ethnicity',
-  //               data: [],
+  //               data: this.getEthnicityData(),
   //               backgroundColor: 'rgba(75,192,192,1)',
   //               borderColor: 'rgba(0,0,0,1)',
   //               borderWidth: 2
@@ -138,7 +155,7 @@ const SearchesPage = ({ match, location }) => {
   //       />
   //     );
   //   }
-  // };
+  // }
 
   if (isLoading) {
     return <Loading />;
@@ -165,10 +182,6 @@ const SearchesPage = ({ match, location }) => {
             <div className="ui row">
               <div className="sixteen wide column">
                 <h2>Self-defined ethnicity</h2>
-
-                <div className="mobile-hidden">
-                  {data && <SearchesChart data={data} />}
-                </div>
 
                 <h3>Click on an item for more detail</h3>
                 <ul className="no-padding">{renderedSearches()}</ul>

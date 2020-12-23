@@ -52,6 +52,7 @@ const SearchesPage = ({ match, location }) => {
       return <div>No search details available for this force.</div>;
     }
 
+    // console.log('state: ' + this.state.selectedForceSearches);
     return data.map((search, index) => {
       return (
         <li
@@ -66,6 +67,25 @@ const SearchesPage = ({ match, location }) => {
       );
     });
   };
+
+  // const getEthnicityOptions = () => {
+  //   let ethnicityOptions = Array.from(
+  //     new Set(data.map(({ self_defined_ethnicity }) => self_defined_ethnicity))
+  //   );
+  //   setEthnicityOptions(ethnicityOptions);
+  //   return ethnicityOptions;
+  //   getEthnicityData();
+  // };
+
+  // const getEthnicityData = () => {
+  //   return ethnicityOptions.map((ethnicity) => {
+  //     //console.log(ethnicity);
+  //     const size = data.filter(
+  //       (item) => item.self_defined_ethnicity === ethnicity
+  //     ).length;
+  //     return size;
+  //   });
+  // };
 
   const onSearchItemSelect = (search) => {
     setSelectedSearchItem(search);
@@ -84,6 +104,12 @@ const SearchesPage = ({ match, location }) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  // useEffect(() => {
+  //   if (data.length) {
+  //     getEthnicityOptions();
+  //   }
+  // }, [data]);
 
   // componentDidMount() {
   //   policeapi
