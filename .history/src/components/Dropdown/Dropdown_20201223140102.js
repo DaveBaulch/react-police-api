@@ -1,10 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
+// class Dropdown extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { term: '' };
+//   }
 
 const Dropdown = ({ forces, onSelectChange }) => {
   const [term, setTerm] = useState('');
 
-  const onDropdownChange = (event) => {
+  const onChange = (event) => {
     setTerm(event.target.value);
     onSelectChange(event);
   };
@@ -13,12 +18,7 @@ const Dropdown = ({ forces, onSelectChange }) => {
     <div>
       <label htmlFor="forces">Please select a force:</label>
       <br />
-      <select
-        name="forces"
-        id="forces"
-        value={term}
-        onChange={onDropdownChange}
-      >
+      <select name="forces" id="forces" value={term} onChange={onChange}>
         <option value="">Please select...</option>
         {forces.map((item) => {
           return (

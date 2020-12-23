@@ -15,7 +15,7 @@ const FormSelect = ({ name, label, items, onFilterSelectChange }) => {
         {label}
       </label>
       <select
-        value={term}
+        value={this.state.term}
         name={name}
         id={name}
         onChange={onSelectChange}

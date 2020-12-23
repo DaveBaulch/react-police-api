@@ -1,5 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
+// class Dropdown extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { term: '' };
+//   }
 
 const Dropdown = ({ forces, onSelectChange }) => {
   const [term, setTerm] = useState('');

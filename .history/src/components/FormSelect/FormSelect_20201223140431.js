@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-const FormSelect = ({ name, label, items, onFilterSelectChange }) => {
+const DroFormSelectpdown = ({ name, label, items, onFilterSelectChange }) => {
   const [term, setTerm] = useState('');
 
   const onSelectChange = (event) => {
@@ -15,7 +15,7 @@ const FormSelect = ({ name, label, items, onFilterSelectChange }) => {
         {label}
       </label>
       <select
-        value={term}
+        value={this.state.term}
         name={name}
         id={name}
         onChange={onSelectChange}

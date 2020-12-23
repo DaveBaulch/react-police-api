@@ -2,10 +2,20 @@ import React from 'react';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import Spinner from '../Spinner';
 
-const MapContainer = ({ errorMessage, lat, lng }) => {
-  const mapStyles = { height: '400px', width: '100%' };
+const MapContainer = ({ errorMessage, lat, lng } ) => {
 
-  const renderContent = () => {
+  // constructor(props) {
+  //   super(props);
+
+  //   this.state = {
+  //     mapStyles: {
+  //       height: '400px',
+  //       width: '100%'
+  //     }
+  //   };
+  // }
+
+
     if (errorMessage && !lat && !lng) {
       return <div>Error: {errorMessage}</div>;
     }
@@ -14,18 +24,19 @@ const MapContainer = ({ errorMessage, lat, lng }) => {
       return (
         <LoadScript googleMapsApiKey="">
           <GoogleMap
-            mapContainerStyle={mapStyles}
+            mapContainerStyle={this.state.mapStyles}
             zoom={17}
             center={{ lat: lat, lng: lng }}
           />
         </LoadScript>
       );
     }
-
     return <Spinner message="Please accept location request" />;
-  };
+  }
 
-  return <div>{renderContent()}</div>;
-};
+  render() {
+    return <div>{this.renderContent()}</div>;
+  }
+}
 
 export default MapContainer;

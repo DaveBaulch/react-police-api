@@ -6,6 +6,8 @@ const MapContainer = ({ errorMessage, lat, lng }) => {
   const mapStyles = { height: '400px', width: '100%' };
 
   const renderContent = () => {
+
+
     if (errorMessage && !lat && !lng) {
       return <div>Error: {errorMessage}</div>;
     }

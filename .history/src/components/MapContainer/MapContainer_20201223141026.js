@@ -6,8 +6,9 @@ const MapContainer = ({ errorMessage, lat, lng }) => {
   const mapStyles = { height: '400px', width: '100%' };
 
   const renderContent = () => {
+    const { errorMessage, lat, lng } = this.props;
+
     if (errorMessage && !lat && !lng) {
-      return <div>Error: {errorMessage}</div>;
     }
 
     if (!errorMessage && lat && lng) {
@@ -21,7 +22,6 @@ const MapContainer = ({ errorMessage, lat, lng }) => {
         </LoadScript>
       );
     }
-
     return <Spinner message="Please accept location request" />;
   };
 
