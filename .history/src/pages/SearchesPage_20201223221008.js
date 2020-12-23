@@ -1,10 +1,13 @@
 import React from 'react';
+// import policeapi from '../apis/policeapi';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Loading from '../components/Loading';
 import SearchesChart from '../components/SearchesChart';
 import SearchesItemDetail from '../components/SearchesItemDetail';
 import Modal from 'react-modal';
+// import { Bar } from 'react-chartjs-2';
+// import Breakpoints from '../config/Breakpoints';
 import useData from '../hooks/useData';
 
 const SearchesPage = ({ match, location }) => {

@@ -13,6 +13,7 @@ const OfficerPage = (props) => {
       return <div>No officer details available for this force.</div>;
     }
 
+    // console.log('state' + this.state.selectedForceOfficers);
     return data.map((officer) => {
       return (
         <div key={officer.name}>
@@ -45,6 +46,8 @@ const OfficerPage = (props) => {
               </a>
             </React.Fragment>
           )}
+
+          <br />
         </div>
       );
     });

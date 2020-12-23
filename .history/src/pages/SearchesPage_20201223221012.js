@@ -1,4 +1,5 @@
 import React from 'react';
+// import policeapi from '../apis/policeapi';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Loading from '../components/Loading';

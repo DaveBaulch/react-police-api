@@ -1,10 +1,13 @@
 import React from 'react';
+// import policeapi from '../apis/policeapi';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Loading from '../components/Loading';
 import SearchesChart from '../components/SearchesChart';
 import SearchesItemDetail from '../components/SearchesItemDetail';
 import Modal from 'react-modal';
+// import { Bar } from 'react-chartjs-2';
+// import Breakpoints from '../config/Breakpoints';
 import useData from '../hooks/useData';
 
 const SearchesPage = ({ match, location }) => {
@@ -13,6 +16,7 @@ const SearchesPage = ({ match, location }) => {
   );
 
   const [selectedSearchItem, setSelectedSearchItem] = useState(null);
+  // const [ethnicityOptions, setEthnicityOptions] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const customStyles = {
     content: {
@@ -24,6 +28,24 @@ const SearchesPage = ({ match, location }) => {
       transform: 'translate(-50%, -50%)'
     }
   };
+
+  // state = {
+  //   selectedForceSearches: [],
+  //   dataLoaded: false,
+  //   ethnicityOptions: [],
+  //   selectedSearchItem: null,
+  //   modalIsOpen: false,
+  //   customStyles: {
+  //     content: {
+  //       top: '50%',
+  //       left: '50%',
+  //       right: 'auto',
+  //       bottom: 'auto',
+  //       marginRight: '-50%',
+  //       transform: 'translate(-50%, -50%)'
+  //     }
+  //   }
+  // };
 
   const renderedSearches = () => {
     if (!data.length) {
@@ -62,6 +84,10 @@ const SearchesPage = ({ match, location }) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+
+
+  
 
   if (isLoading) {
     return <Loading />;

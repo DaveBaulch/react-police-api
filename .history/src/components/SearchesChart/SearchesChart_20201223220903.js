@@ -1,8 +1,10 @@
 import React from 'react';
+// import { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import Breakpoints from '../../config/Breakpoints';
 
 const SearchesChart = ({ data }) => {
+
   const ethnicityOptions = Array.from(
     new Set(data.map(({ self_defined_ethnicity }) => self_defined_ethnicity))
   );
