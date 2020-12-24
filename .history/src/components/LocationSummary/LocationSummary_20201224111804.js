@@ -33,6 +33,7 @@ const LocationSummary = ({ coords }) => {
   };
 
   const onFilterSelectChange = (event) => {
+    const filterTerms = filterTerms;
     console.log('Form filter changed');
     filterTerms[event.target.name] = event.target.value;
     setFilterTerms(filterTerms);

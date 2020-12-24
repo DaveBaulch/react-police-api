@@ -33,20 +33,21 @@ const LocationSummary = ({ coords }) => {
   };
 
   const onFilterSelectChange = (event) => {
+    const filterTerms = filterTerms;
     console.log('Form filter changed');
     filterTerms[event.target.name] = event.target.value;
     setFilterTerms(filterTerms);
     filterSearchData();
   };
 
-  const filterSearchData = () => {
-    const filteredData = data.filter(
-      (item) =>
-        item.gender === filterTerms.genderFilterTerm &&
-        item.object_of_search === filterTerms.offenceFilterTerm
-    );
-    setFilteredData(filteredData);
-  };
+    const filterSearchData = () => {
+      const filteredData = data.filter(
+        (item) =>
+          item.gender === genderArray.filter(Boolean)[0] &&
+          item.object_of_search === offenceArray.filter(Boolean)[0]
+      );
+      setFilteredData(filteredData);
+    };  
 
   const onSearchItemSelect = (search) => {
     console.log('From the list!', search);

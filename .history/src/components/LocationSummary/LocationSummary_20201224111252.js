@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Searches from '../Searches';
 import SearchesItemDetail from '../SearchesItemDetail';
-import FormSelect from '../FormSelect';
 import useData from '../../hooks/useData';
 import Spinner from '../Spinner';
 import Modal from 'react-modal';
@@ -30,22 +29,6 @@ const LocationSummary = ({ coords }) => {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)'
     }
-  };
-
-  const onFilterSelectChange = (event) => {
-    console.log('Form filter changed');
-    filterTerms[event.target.name] = event.target.value;
-    setFilterTerms(filterTerms);
-    filterSearchData();
-  };
-
-  const filterSearchData = () => {
-    const filteredData = data.filter(
-      (item) =>
-        item.gender === filterTerms.genderFilterTerm &&
-        item.object_of_search === filterTerms.offenceFilterTerm
-    );
-    setFilteredData(filteredData);
   };
 
   const onSearchItemSelect = (search) => {
@@ -125,18 +108,7 @@ const LocationSummary = ({ coords }) => {
             <div className="ui row">
               <div className="twelve wide column">
                 <h2>Filter results</h2>
-                <FormSelect
-                  name={'genderFilterTerm'}
-                  items={genderOptions}
-                  onFilterSelectChange={onFilterSelectChange}
-                  label={'Gender:'}
-                />
-                <FormSelect
-                  name={'offenceFilterTerm'}
-                  items={offenceOptions}
-                  onFilterSelectChange={onFilterSelectChange}
-                  label={'Offence:'}
-                />
+                Filters go here
               </div>
             </div>
 
