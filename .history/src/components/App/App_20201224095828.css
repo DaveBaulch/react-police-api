@@ -1,0 +1,39 @@
+.App {
+  text-align: left;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 767px) {
+  .mobile-hidden {
+    display: none;
+  }
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.no-bullets {
+  list-style: none;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.map-wrapper {
+  display: block;
+  border: 1px solid #f0f;
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+}
