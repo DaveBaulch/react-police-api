@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useData from '../hooks/useData';
 import Loading from '../components/Loading';
 
-const OfficerPage = ({ match, location }) => {
+const OfficerPage = ({}}) => {
   const [data, isLoading, isError] = useData(
     `/forces/${match.params.id}/people`
   );
@@ -64,7 +64,7 @@ const OfficerPage = ({ match, location }) => {
 
   return (
     <div className="ui container">
-      <h1>Officer Details - {location.state.selectedForceName}</h1>
+      <h1>Officer Details - {props.location.state.selectedForceName}</h1>
 
       <div className="ui segment">
         <Link to={'/'} className="ui button primary">

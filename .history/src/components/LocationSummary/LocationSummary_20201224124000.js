@@ -34,7 +34,7 @@ const LocationSummary = ({ coords }) => {
   };
 
   const getOffenceData = () => {
-    const maleSearches = data.filter((search) => {
+    const maleFilterdSearches = data.filter((search) => {
       return (
         search.gender === 'Male' &&
         search.object_of_search === filterTerms.offenceFilterTerm
@@ -100,12 +100,12 @@ const LocationSummary = ({ coords }) => {
     const maleSearches = data.filter(function (search) {
       return search.gender === 'Male';
     });
-    setMaleSearches(maleSearches.length);
+    setMaleSearches(maleSearches);
 
     const femaleSearches = data.filter(function (search) {
       return search.gender === 'Female';
     });
-    setFemaleSearches(femaleSearches.length);
+    setFemaleSearches(femaleSearches);
 
     setFilterTerms({
       genderFilterTerm: genderArray.filter(Boolean)[0],

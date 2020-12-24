@@ -6,7 +6,6 @@ import FormSelect from '../FormSelect';
 import useData from '../../hooks/useData';
 import Spinner from '../Spinner';
 import Modal from 'react-modal';
-import { Doughnut } from 'react-chartjs-2';
 
 const LocationSummary = ({ coords }) => {
   const [data, isLoading, isError] = useData(
@@ -31,24 +30,6 @@ const LocationSummary = ({ coords }) => {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)'
     }
-  };
-
-  const getOffenceData = () => {
-    const maleSearches = data.filter((search) => {
-      return (
-        search.gender === 'Male' &&
-        search.object_of_search === filterTerms.offenceFilterTerm
-      );
-    });
-
-    const femaleSearches = data.filter((search) => {
-      return (
-        search.gender === 'Female' &&
-        search.object_of_search === filterTerms.offenceFilterTerm
-      );
-    });
-
-    return [maleSearches.length, femaleSearches.length];
   };
 
   const onFilterSelectChange = (event) => {
@@ -100,12 +81,12 @@ const LocationSummary = ({ coords }) => {
     const maleSearches = data.filter(function (search) {
       return search.gender === 'Male';
     });
-    setMaleSearches(maleSearches.length);
+    setMaleSearches(maleSearches);
 
     const femaleSearches = data.filter(function (search) {
       return search.gender === 'Female';
     });
-    setFemaleSearches(femaleSearches.length);
+    setFemaleSearches(femaleSearches);
 
     setFilterTerms({
       genderFilterTerm: genderArray.filter(Boolean)[0],
@@ -183,53 +164,7 @@ const LocationSummary = ({ coords }) => {
                   </React.Fragment>
                 )}
               </div>
-              <div className="ten wide column">
-                <h3>
-                  Searches by offence type - {filterTerms.offenceFilterTerm}
-                </h3>
-                <Doughnut
-                  data={{
-                    labels: ['Male', 'Female'],
-                    datasets: [
-                      {
-                        label: 'Searches by gender',
-                        data: getOffenceData(),
-                        backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(54, 162, 235, 0.2)'
-                        ],
-                        borderColor: [
-                          'rgba(255, 99, 132, 1)',
-                          'rgba(54, 162, 235, 1)'
-                        ],
-                        borderWidth: 1
-                      }
-                    ]
-                  }}
-                />
-
-                <h3>Overall searches by gender</h3>
-                <Doughnut
-                  data={{
-                    labels: ['Male', 'Female'],
-                    datasets: [
-                      {
-                        label: 'Crime by gender',
-                        data: [maleSearches, femaleSearches],
-                        backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(54, 162, 235, 0.2)'
-                        ],
-                        borderColor: [
-                          'rgba(255, 99, 132, 1)',
-                          'rgba(54, 162, 235, 1)'
-                        ],
-                        borderWidth: 1
-                      }
-                    ]
-                  }}
-                />
-              </div>
+              <div className="ten wide column searches"></div>
             </div>
           </div>
         </div>

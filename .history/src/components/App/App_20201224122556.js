@@ -11,7 +11,7 @@ import './App.css';
 
 const App = () => {
   return (
-    <div className="app">
+    <div className="App">
       <Router history={createBrowserHistory}>
         <Header />
         <Switch>

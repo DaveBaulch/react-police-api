@@ -105,7 +105,7 @@ const LocationSummary = ({ coords }) => {
     const femaleSearches = data.filter(function (search) {
       return search.gender === 'Female';
     });
-    setFemaleSearches(femaleSearches.length);
+    setFemaleSearches(femaleSearches);
 
     setFilterTerms({
       genderFilterTerm: genderArray.filter(Boolean)[0],

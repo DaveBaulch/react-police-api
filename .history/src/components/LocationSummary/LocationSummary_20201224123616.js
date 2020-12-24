@@ -33,24 +33,6 @@ const LocationSummary = ({ coords }) => {
     }
   };
 
-  const getOffenceData = () => {
-    const maleSearches = data.filter((search) => {
-      return (
-        search.gender === 'Male' &&
-        search.object_of_search === filterTerms.offenceFilterTerm
-      );
-    });
-
-    const femaleSearches = data.filter((search) => {
-      return (
-        search.gender === 'Female' &&
-        search.object_of_search === filterTerms.offenceFilterTerm
-      );
-    });
-
-    return [maleSearches.length, femaleSearches.length];
-  };
-
   const onFilterSelectChange = (event) => {
     console.log('Form filter changed');
     filterTerms[event.target.name] = event.target.value;
@@ -100,12 +82,12 @@ const LocationSummary = ({ coords }) => {
     const maleSearches = data.filter(function (search) {
       return search.gender === 'Male';
     });
-    setMaleSearches(maleSearches.length);
+    setMaleSearches(maleSearches);
 
     const femaleSearches = data.filter(function (search) {
       return search.gender === 'Female';
     });
-    setFemaleSearches(femaleSearches.length);
+    setFemaleSearches(femaleSearches);
 
     setFilterTerms({
       genderFilterTerm: genderArray.filter(Boolean)[0],
@@ -185,7 +167,8 @@ const LocationSummary = ({ coords }) => {
               </div>
               <div className="ten wide column">
                 <h3>
-                  Searches by offence type - {filterTerms.offenceFilterTerm}
+                  Searches by offence type -{' '}
+                  {this.state.filterTerms.offenceFilterTerm}
                 </h3>
                 <Doughnut
                   data={{
@@ -193,7 +176,7 @@ const LocationSummary = ({ coords }) => {
                     datasets: [
                       {
                         label: 'Searches by gender',
-                        data: getOffenceData(),
+                        data: this.getOffenceData(),
                         backgroundColor: [
                           'rgba(255, 99, 132, 0.2)',
                           'rgba(54, 162, 235, 0.2)'
@@ -215,7 +198,10 @@ const LocationSummary = ({ coords }) => {
                     datasets: [
                       {
                         label: 'Crime by gender',
-                        data: [maleSearches, femaleSearches],
+                        data: [
+                          this.state.maleSearches,
+                          this.state.femaleSearches
+                        ],
                         backgroundColor: [
                           'rgba(255, 99, 132, 0.2)',
                           'rgba(54, 162, 235, 0.2)'

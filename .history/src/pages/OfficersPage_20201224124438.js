@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useData from '../hooks/useData';
 import Loading from '../components/Loading';
 
-const OfficerPage = ({ match, location }) => {
+const OfficerPage = ({match, }) => {
   const [data, isLoading, isError] = useData(
     `/forces/${match.params.id}/people`
   );

@@ -1,7 +1,14 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+// import Searches from '../components/Searches';
+// import SearchesItemDetail from '../components/SearchesItemDetail';
 import MapContainer from '../components/MapContainer';
 import LocationSummary from '../components/LocationSummary';
+// import FormSelect from '../components/FormSelect';
+// import policeapi from '../apis/policeapi';
+// import Modal from 'react-modal';
+// import { Doughnut } from 'react-chartjs-2';
+// import useData from '../hooks/useData';
 
 const LocationPage = () => {
   const [coords, setCoords] = useState(null);
